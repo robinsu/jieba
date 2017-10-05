@@ -34,15 +34,19 @@ DICT_WRITING = {}
 
 pool = None
 
-re_userdict = re.compile('^(.+?)( [0-9]+)?( [a-z]+)?$', re.U)
+# re_userdict = re.compile('^(.+?)( [0-9]+)?( [a-z]+)?$', re.U)
+re_userdict = re.compile('^(.+?)(\u0040\u0040[0-9]+)?(\u0040\u0040[a-z]+)?$', re.U) 
 
 re_eng = re.compile('[a-zA-Z0-9]', re.U)
 
 # \u4E00-\u9FD5a-zA-Z0-9+#&\._ : All non-space characters. Will be handled with re_han
 # \r\n|\s : whitespace characters. Will not be handled.
-re_han_default = re.compile("([\u4E00-\u9FD5a-zA-Z0-9+#&\._%]+)", re.U)
+# follow to support English Terms Defintion: http://blog.csdn.net/wangpei1949/article/details/57077007
+# re_han_default = re.compile("([\u4E00-\u9FD5a-zA-Z0-9+#&\._%]+)", re.U)
+re_han_default = re.compile("(.+)", re.U) 
 re_skip_default = re.compile("(\r\n|\s)", re.U)
-re_han_cut_all = re.compile("([\u4E00-\u9FD5]+)", re.U)
+# re_han_cut_all = re.compile("([\u4E00-\u9FD5]+)", re.U)
+re_han_cut_all = re.compile("(.+)", re.U)
 re_skip_cut_all = re.compile("[^a-zA-Z0-9+#\n]", re.U)
 
 def setLogLevel(log_level):
@@ -74,7 +78,8 @@ class Tokenizer(object):
         for lineno, line in enumerate(f, 1):
             try:
                 line = line.strip().decode('utf-8')
-                word, freq = line.split(' ')[:2]
+                # word, freq = line.split(' ')[:2]
+                word, freq = line.split(‘\u0040\u0040’)[:2]
                 freq = int(freq)
                 lfreq[word] = freq
                 ltotal += freq
