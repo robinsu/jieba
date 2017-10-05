@@ -79,7 +79,7 @@ class Tokenizer(object):
             try:
                 line = line.strip().decode('utf-8')
                 # word, freq = line.split(' ')[:2]
-                word, freq = line.split(‘\u0040\u0040’)[:2]
+                word, freq = line.split('\u0040\u0040')[:2]
                 freq = int(freq)
                 lfreq[word] = freq
                 ltotal += freq
