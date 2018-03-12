@@ -35,7 +35,7 @@ DICT_WRITING = {}
 pool = None
 
 # re_userdict = re.compile('^(.+?)( [0-9]+)?( [a-z]+)?$', re.U)
-re_userdict = re.compile('^(.+?)(\u0040\u0040[0-9]+)?(\u0040\u0040[a-z]+)?$', re.U) 
+re_userdict = re.compile('^(.+?)(\t[0-9]+)?(\t[a-z]+)?$', re.U) 
 
 re_eng = re.compile('[a-zA-Z0-9]', re.U)
 
@@ -79,7 +79,7 @@ class Tokenizer(object):
             try:
                 line = line.strip().decode('utf-8')
                 # word, freq = line.split(' ')[:2]
-                word, freq = line.split('\u0040\u0040')[:2]
+                word, freq = line.split('\t')[:2]
                 freq = int(freq)
                 lfreq[word] = freq
                 ltotal += freq
